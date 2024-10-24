@@ -27,7 +27,11 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/dishes", dishRoutes);
 app.use("/api", webRoutes);
 app.use("/api", require("./routes/reservationRoutes"));
-
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .json({ success: true, message: "Server is running successfully." });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
