@@ -1,7 +1,7 @@
-const Reservation = require("../model/reservation");
+import Reservation from "../model/reservation.js";
 
 // Fetch all reservations
-exports.getReservations = async (req, res) => {
+export const getReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find();
     res.json({ data: reservations });
@@ -11,7 +11,7 @@ exports.getReservations = async (req, res) => {
 };
 
 // Create a reservation
-exports.createReservation = async (req, res) => {
+export const createReservation = async (req, res) => {
   try {
     const { name, date, time, numberOfPeople, phoneNumber, email } = req.body;
     const newReservation = new Reservation({
@@ -30,7 +30,7 @@ exports.createReservation = async (req, res) => {
 };
 
 // Delete a reservation
-exports.deleteReservation = async (req, res) => {
+export const deleteReservation = async (req, res) => {
   try {
     await Reservation.findByIdAndDelete(req.params.id);
     res.json({ message: "Reservation deleted" });

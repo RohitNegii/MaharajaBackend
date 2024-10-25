@@ -1,9 +1,9 @@
-const Dish = require("../model/dish");
-const { successResponse, errorResponse } = require("../views/responseHandler");
+import Dish from "../model/dish.js";
+import { successResponse, errorResponse } from "../views/responseHandler.js";
 
 // Get all dishes
-exports.getAllDishes = async (req, res) => {
-  console.log("heyyhh");
+export const getAllDishes = async (req, res) => {
+  console.log("Fetching all dishes");
 
   try {
     const dishes = await Dish.find().populate("category", "name"); // Populate category name
@@ -14,7 +14,7 @@ exports.getAllDishes = async (req, res) => {
 };
 
 // Get dish by ID
-exports.getDishById = async (req, res) => {
+export const getDishById = async (req, res) => {
   try {
     const dish = await Dish.findById(req.params.id).populate(
       "category",
@@ -28,7 +28,7 @@ exports.getDishById = async (req, res) => {
 };
 
 // Create a new dish
-exports.createDish = async (req, res) => {
+export const createDish = async (req, res) => {
   try {
     const newDish = new Dish({
       name: req.body.name,
@@ -47,7 +47,7 @@ exports.createDish = async (req, res) => {
 };
 
 // Update a dish
-exports.updateDish = async (req, res) => {
+export const updateDish = async (req, res) => {
   try {
     const dish = await Dish.findById(req.params.id);
     if (!dish) return errorResponse(res, "Dish not found", 404);
@@ -59,13 +59,11 @@ exports.updateDish = async (req, res) => {
     dish.description = req.body.description || dish.description;
     dish.price = req.body.price || dish.price;
     dish.showDrinks = req.body.showDrinks;
-
-    dish.showToopins = req.body.showToopins ;
-
+    dish.showToopins = req.body.showToopins;
     dish.showDishToHomePage =
       req.body.showDishToHomePage !== undefined
         ? req.body.showDishToHomePage
-        : dish.showDishToHomePage; // Handle showDishToHomePage
+        : dish.showDishToHomePage;
 
     console.log(dish, "dish");
 
@@ -77,10 +75,9 @@ exports.updateDish = async (req, res) => {
 };
 
 // Delete a dish
-exports.deleteDish = async (req, res) => {
+export const deleteDish = async (req, res) => {
   try {
-    const dish = await Dish.findByIdAndDelete(req.params.id);
-
+    await Dish.findByIdAndDelete(req.params.id);
     successResponse(res, "Dish deleted successfully");
   } catch (error) {
     errorResponse(res, error.message);

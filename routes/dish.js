@@ -1,14 +1,13 @@
-// routes/dish.js
-const express = require("express");
-const router = express.Router();
-const {
+import express from "express";
+import {
   getAllDishes,
   getDishById,
   createDish,
   updateDish,
   deleteDish,
-  
-} = require("../controller/dish");
+} from "../controller/dish.js";
+
+const router = express.Router();
 
 // Define routes
 router.get("/", getAllDishes);
@@ -17,5 +16,4 @@ router.post("/", createDish);
 router.put("/:id", updateDish);
 router.delete("/:id", deleteDish);
 
-
-module.exports = router;
+export default router;

@@ -1,8 +1,9 @@
-const Dish = require("../model/dish");
-const { successResponse, errorResponse } = require("../views/responseHandler");
-const Category = require("../model/category");
+import Dish from "../model/dish.js";
+import { successResponse, errorResponse } from "../views/responseHandler.js";
+import Category from "../model/category.js"; // Ensure this imports the correct model
+import DishCategory from "../model/category.js"; // Assuming DishCategory is exported from the same file
 
-exports.getDishByShowDishHomePage = async (req, res) => {
+export const getDishByShowDishHomePage = async (req, res) => {
   try {
     // Get the dish type from query parameters
     const { type } = req.query;
@@ -23,13 +24,13 @@ exports.getDishByShowDishHomePage = async (req, res) => {
       .limit(10)
       .populate("category");
 
-    res.status(200).json(dishes);
+    successResponse(res, dishes); // Use successResponse helper for consistency
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    errorResponse(res, "Server error", 500);
   }
 };
 
-exports.searchDishes = async (req, res) => {
+export const searchDishes = async (req, res) => {
   console.log("Searching dishes");
   try {
     // Get category ID and dish type from query parameters
@@ -76,17 +77,17 @@ exports.searchDishes = async (req, res) => {
       })),
     };
 
-    res.status(200).json(response);
+    successResponse(res, response); // Use successResponse for consistency
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    errorResponse(res, "Server error", 500);
   }
 };
 
-exports.getAllCategories = async (req, res) => {
+export const getAllCategories = async (req, res) => {
   try {
     const categories = await DishCategory.find(); // Fetch all categories
-    res.status(200).json(categories); // Send the categories as a JSON response
+    successResponse(res, categories); // Send the categories as a JSON response
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error: error.message }); // Handle any errors
+    errorResponse(res, "Server Error", 500); // Handle any errors
   }
 };

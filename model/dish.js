@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const dishSchema = new mongoose.Schema(
   {
@@ -33,11 +33,11 @@ const dishSchema = new mongoose.Schema(
     },
     showDrinks: {
       type: Boolean,
-      default: false, // New field to indicate whether to show the dish on the home page
+      default: false, // New field to indicate whether to show drinks on the home page
     },
     showToopins: {
       type: Boolean,
-      default: false, // New field to indicate whether to show the dish on the home page
+      default: false, // New field to indicate whether to show toppings on the home page
     },
   },
   {
@@ -47,4 +47,4 @@ const dishSchema = new mongoose.Schema(
 
 const Dish = mongoose.model("Dish", dishSchema);
 
-module.exports = Dish;
+export default Dish;

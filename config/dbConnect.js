@@ -1,16 +1,14 @@
-const mongoose = require("mongoose");
+// config/dbConnect.js
+import mongoose from "mongoose";
 
 const dbConnect = async () => {
   try {
-    console.log(process.env.DB_URI);
-    await mongoose.connect(
-      `mongodb+srv://Rohit-Negi:${encodeURIComponent(
-        "Rohit@123"
-      )}@cluster0.3rzcd1u.mongodb.net/maharaja?retryWrites=true&w=majority`
-    );
-  } catch (err) {
-    console.log(err);
+    await mongoose.connect(process.env.DB_URI);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    process.exit(1); // Exit the process if unable to connect
   }
 };
 
-module.exports = dbConnect;
+export default dbConnect;

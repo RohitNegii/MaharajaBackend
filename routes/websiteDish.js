@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const {
+import {
   getDishByShowDishHomePage,
   searchDishes,
   getAllCategories,
-} = require("../controller/websiteDishController");
+} from "../controller/websiteDishController.js";
 
+// Define routes
 router.get("/getDishByShowDishHomePage", getDishByShowDishHomePage);
-
 router.get("/allDishes", searchDishes);
 router.get("/allCategory", getAllCategories);
 
-module.exports = router;
+export default router;
